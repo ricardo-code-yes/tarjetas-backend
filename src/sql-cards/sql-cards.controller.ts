@@ -1,22 +1,22 @@
 import { Controller, Get, Param, Delete } from '@nestjs/common';
 import { SqlCardsService } from './sql-cards.service';
-import { InjectRepository } from '@nestjs/typeorm';
-import { SqlCard } from './entities/sql-card.entity';
-import { Repository } from 'typeorm';
+import { plainToInstance } from 'class-transformer';
+import { CardDto } from 'src/cards/dto/card.dto';
 
 @Controller('sql-cards')
 export class SqlCardsController {
-  @InjectRepository(SqlCard)
-  private sqlCardRepository: Repository<SqlCard>;
   constructor(private readonly sqlCardsService: SqlCardsService) {}
 
   @Get()
   async findAll() {
-    return this.sqlCardRepository.find();
+    const sqlCards = await this.sqlCardsService.findAll();
+    return plainToInstance(CardDto, sqlCards, {
+      excludeExtraneousValues: true,
+    });
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.sqlCardsService.remove(+id);
   }
 }
