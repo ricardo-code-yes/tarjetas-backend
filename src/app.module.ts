@@ -1,28 +1,17 @@
-import { Logger, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
 import { CardsModule } from './cards/cards.module';
+import { SqlCardsModule } from './sql-cards/sql-cards.module';
+import { DatabaseModule } from './database/database.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRootAsync({
-      useFactory: () => ({
-        uri: 'mongodb+srv://ricardo-prueba:Df7wZ5TXEd6lJGHP@cluster0.rxbw1cc.mongodb.net/ricardo-prueba?retryWrites=true&w=majority',
-        connectionFactory: (connection) => {
-          // Configurar el nivel de log de Mongoose a nivel de instancia
-          connection.set('debug', (collectionName, method, query) => {
-            Logger.debug(
-              `${collectionName}.${method}`,
-              JSON.stringify(query),
-              'MongooseQuery',
-            );
-          });
-          return connection;
-        },
-      }),
-    }),
+    ConfigModule.forRoot({ isGlobal: true }),
     CardsModule,
+    SqlCardsModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

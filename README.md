@@ -71,3 +71,44 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Set mysql locally
+
+1. Instalar mysql en Mac
+
+```bash
+# install mysql
+$ brew install mysql
+
+# start services
+$ brew services start mysql
+```
+
+2. Configurar mysql
+
+```bash
+# login as root
+$ mysql -u root
+
+# set new password
+$ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<nueva-contraseña>';
+
+# refresh to apply changes
+$ FLUSH PRIVILEGES;
+
+# exit
+exit;
+```
+
+3. Create new database
+
+```bash
+# login as root
+$ mysql -u root
+
+# create database named prueba
+$ CREATE DATABASE prueba;
+
+# select to use
+$ USE prueba;
+```

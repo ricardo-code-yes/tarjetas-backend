@@ -5,6 +5,7 @@ import {
   Param,
   Delete,
   UseInterceptors,
+  Patch,
 } from '@nestjs/common';
 import { CardsService } from './cards.service';
 import { CardDto } from './dto/card.dto';
