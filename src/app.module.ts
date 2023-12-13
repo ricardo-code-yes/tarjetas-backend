@@ -5,6 +5,7 @@ import { CardsModule } from './cards/cards.module';
 import { SqlCardsModule } from './sql-cards/sql-cards.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthzModule } from './authz/authz.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { ConfigModule } from '@nestjs/config';
     CardsModule,
     SqlCardsModule,
     DatabaseModule,
+    AuthzModule,
   ],
   controllers: [AppController],
   providers: [AppService],
